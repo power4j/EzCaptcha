@@ -46,9 +46,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <spring-el.version>5.2.12.RELEASE</spring-el.version>
     </properties>
 
     <dependencies>
+        <!-- 算术验证码使用 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${spring-el.version}</version>
+            <optional>true</optional>
+        </dependency>
         <!-- j2ee环境 -->
         <dependency>
             <groupId>javax.servlet</groupId>

@@ -1,14 +1,21 @@
 package com.wf.captcha.base;
 
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 算术验证码抽象类
  * Created by 王帆 on 2019-08-23 上午 10:08.
  */
 public abstract class ArithmeticCaptchaAbstract extends Captcha {
+    private final static AtomicReference<ExpressionParser> parserRef = new AtomicReference<>();
     private String arithmeticString;  // 计算公式
 
     public ArithmeticCaptchaAbstract() {
@@ -36,13 +43,7 @@ public abstract class ArithmeticCaptchaAbstract extends Captcha {
                 }
             }
         }
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("javascript");
-        try {
-            chars = String.valueOf(engine.eval(sb.toString().replaceAll("x", "*")));
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+        chars = eval(sb.toString().replaceAll("x", "*")).toString();
         sb.append("=?");
         arithmeticString = sb.toString();
         return chars.toCharArray();
@@ -56,4 +57,9 @@ public abstract class ArithmeticCaptchaAbstract extends Captcha {
     public void setArithmeticString(String arithmeticString) {
         this.arithmeticString = arithmeticString;
     }
+
+    protected static Integer eval(String expr){
+        return parserRef.updateAndGet(o -> o == null ? new SpelExpressionParser() : o).parseExpression(expr).getValue(Integer.class);
+    }
+
 }
