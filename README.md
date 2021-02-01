@@ -1,8 +1,10 @@
-# EasyCaptcha
+[![travis-ci](https://travis-ci.com/power4j/EzCaptcha.svg)](https://travis-ci.com/github/power4j/EzCaptcha)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.power4j.kit/ez-captcha/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.power4j.kit/ez-captcha)
+# EzCaptcha
 
-![MavenCentral](https://img.shields.io/maven-central/v/com.github.whvcse/easy-captcha?style=flat-square)
-![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)
-
+> 原项目的作者估计太忙，没时间维护，所以接个盘，稍微打理一下，满足自用需求
+>
+> 原项目地址： https://github.com/whvcse/EasyCaptcha
 
 ## 1.简介
 &emsp;Java图形验证码，支持gif、中文、算术等类型，可用于Java Web、JavaSE等项目。
@@ -52,35 +54,14 @@
 
 ## 3.导入项目
 
-### 3.1.gradle方式的引入
-```text
-dependencies {
-    compile 'com.github.whvcse:easy-captcha:1.6.2'
-}
-```
-
-### 3.2.maven方式引入
 ```xml
 <dependencies>
    <dependency>
-      <groupId>com.github.whvcse</groupId>
-      <artifactId>easy-captcha</artifactId>
-      <version>1.6.2</version>
+     <groupId>com.power4j.kit</groupId>
+     <artifactId>ez-captcha</artifactId>
+     <version>最新版本</version>
    </dependency>
 </dependencies>
-```
-
-### 3.3.jar包下载
-[easy-captcha-1.6.2.jar](https://gitee.com/whvse/EasyCaptcha/releases)
-
-maven导入jar包，在项目根目录创建`libs`文件夹，然后pom.xml添加如下：
-```
-<dependency>
-  <groupId>com.github.whvcse</groupId>
-  <artifactId>easy-captcha</artifactId>
-  <version>1.6.1</version>
-  <systemPath>${basedir}/libs/easy-captcha-1.6.2.jar</systemPath>
-</dependency>
 ```
 
 ---
@@ -107,17 +88,20 @@ public class CaptchaController {
 
 ### 4.2.在servlet中使用
 web.xml中配置servlet：
+
 ```xml
+
 <web-app>
-    <!-- 图形验证码servlet -->
-    <servlet>
-        <servlet-name>CaptchaServlet</servlet-name>
-        <servlet-class>com.wf.captcha.servlet.CaptchaServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CaptchaServlet</servlet-name>
-        <url-pattern>/captcha</url-pattern>
-    </servlet-mapping>
+  <!-- 图形验证码servlet -->
+  <servlet>
+    <servlet-name>CaptchaServlet</servlet-name>
+    <servlet-class>com.power4j.kit.captcha.servlet.CaptchaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CaptchaServlet</servlet-name>
+       
+    <url-pattern>/captcha</url-pattern>
+  </servlet-mapping>
 </web-app>
 
 ```
@@ -374,14 +358,12 @@ public class CaptchaController {
 
 - **2019-08-23 (v1.6.2)**
     - 增加10种漂亮的内置字体，不依赖系统字体
-    
     - 增加算术验证码，运算位数可自由配置
     - 增加输出base64编码的功能
     - 增加贝塞尔曲线作为干扰线
     
 - **2018-08-09 (v1.5.0)**
     - 增加纯大写字母、纯小写字母、数字和大写字母配置
-    
     - 增加中文验证码、中文gif验证码
     - 增加抗锯齿效果，优化文字颜色
     - 增加CaptchaUtil便于Web项目使用
